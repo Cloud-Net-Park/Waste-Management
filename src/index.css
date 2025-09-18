@@ -1,0 +1,143 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Waste Management System Design System - Environmental & Sustainable Theme */
+
+@layer base {
+  :root {
+    /* Core Environmental Palette */
+    --background: 120 20% 98%;
+    --foreground: 140 15% 15%;
+
+    --card: 120 30% 97%;
+    --card-foreground: 140 15% 15%;
+
+    --popover: 120 30% 97%;
+    --popover-foreground: 140 15% 15%;
+
+    /* Green Primary - Sustainable & Natural */
+    --primary: 142 76% 36%;
+    --primary-foreground: 120 20% 98%;
+    --primary-glow: 142 76% 50%;
+
+    /* Earth Secondary */
+    --secondary: 120 15% 92%;
+    --secondary-foreground: 140 15% 25%;
+
+    --muted: 120 10% 94%;
+    --muted-foreground: 140 10% 45%;
+
+    /* Accent - Sustainable Blue */
+    --accent: 195 62% 45%;
+    --accent-foreground: 120 20% 98%;
+
+    /* Warning/Alert - Organic Orange */
+    --warning: 35 90% 55%;
+    --warning-foreground: 120 20% 98%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 120 20% 98%;
+
+    --border: 120 15% 88%;
+    --input: 120 15% 92%;
+    --ring: 142 76% 36%;
+
+    --radius: 0.75rem;
+
+    /* Custom Waste Management Colors */
+    --recycling: 195 100% 35%;
+    --composting: 85 60% 40%;
+    --hazardous: 0 85% 55%;
+    --organic: 85 45% 50%;
+    
+    /* Gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--primary-glow)));
+    --gradient-eco: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--accent)));
+    --gradient-waste: linear-gradient(135deg, hsl(var(--composting)), hsl(var(--recycling)));
+    
+    /* Shadows */
+    --shadow-eco: 0 10px 30px -12px hsl(var(--primary) / 0.25);
+    --shadow-card: 0 4px 20px -4px hsl(142 20% 60% / 0.15);
+    --shadow-glow: 0 0 40px hsl(var(--primary-glow) / 0.3);
+    
+    /* Transitions */
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-bounce: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+
+    --sidebar-background: 0 0% 98%;
+
+    --sidebar-foreground: 240 5.3% 26.1%;
+
+    --sidebar-primary: 240 5.9% 10%;
+
+    --sidebar-primary-foreground: 0 0% 98%;
+
+    --sidebar-accent: 240 4.8% 95.9%;
+
+    --sidebar-accent-foreground: 240 5.9% 10%;
+
+    --sidebar-border: 220 13% 91%;
+
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+
+  .dark {
+    /* Dark Environmental Theme */
+    --background: 140 15% 8%;
+    --foreground: 120 20% 95%;
+
+    --card: 140 15% 12%;
+    --card-foreground: 120 20% 95%;
+
+    --popover: 140 15% 12%;
+    --popover-foreground: 120 20% 95%;
+
+    --primary: 142 76% 50%;
+    --primary-foreground: 140 15% 8%;
+    --primary-glow: 142 76% 65%;
+
+    --secondary: 140 10% 18%;
+    --secondary-foreground: 120 15% 85%;
+
+    --muted: 140 8% 15%;
+    --muted-foreground: 120 10% 65%;
+
+    --accent: 195 62% 55%;
+    --accent-foreground: 140 15% 8%;
+
+    --warning: 35 90% 65%;
+    --warning-foreground: 140 15% 8%;
+
+    --destructive: 0 84% 70%;
+    --destructive-foreground: 140 15% 8%;
+
+    --border: 140 12% 20%;
+    --input: 140 12% 18%;
+    --ring: 142 76% 50%;
+    
+    /* Dark Waste Management Colors */
+    --recycling: 195 100% 45%;
+    --composting: 85 60% 50%;
+    --hazardous: 0 85% 65%;
+    --organic: 85 45% 60%;
+    --sidebar-background: 240 5.9% 10%;
+    --sidebar-foreground: 240 4.8% 95.9%;
+    --sidebar-primary: 224.3 76.3% 48%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 240 3.7% 15.9%;
+    --sidebar-accent-foreground: 240 4.8% 95.9%;
+    --sidebar-border: 240 3.7% 15.9%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+}
