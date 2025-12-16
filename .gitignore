@@ -12,6 +12,11 @@ dist
 dist-ssr
 *.local
 
+# Supabase
+supabase/.branches
+supabase/.temp
+supabase/functions/**/.env
+
 # Vite
 .vite
 vite.config.ts.timestamp*
@@ -23,6 +28,7 @@ coverage
 # Environment files
 .env
 .env.*
+!.env.example
 
 # OS generated files
 Thumbs.db

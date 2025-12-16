@@ -1,0 +1,16 @@
+-- Describe the expected schema for training_modules table
+-- This is NOT executable SQL, but a reference for your Supabase table structure
+
+Table: public.training_modules
+
+Columns:
+- id uuid PRIMARY KEY DEFAULT uuid_generate_v4()
+- title text NOT NULL
+- duration text NOT NULL -- or integer, depending on your app
+- difficulty text NOT NULL
+- description text
+- topics text[] -- or jsonb, depending on your app
+- target_participants text
+- created_at timestamp with time zone DEFAULT now()
+
+-- If you want the actual SQL to create or fix this table, let me know your preferred type for 'topics' (text[] or jsonb) and I will generate it.

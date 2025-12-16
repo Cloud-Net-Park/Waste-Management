@@ -1,4 +1,5 @@
 import { useState } from "react";
+import PhotoUploadWithGeo from "@/components/PhotoUploadWithGeo";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -19,8 +20,9 @@ const WasteReportForm = () => {
     description: '',
     location: '',
     ward: '',
-    priority: 'medium' as 'low' | 'medium' | 'high'
+    priority: 'medium' as 'low' | 'medium' | 'high',
   });
+  // Remove photo and geo state, handle upload immediately
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -37,6 +39,7 @@ const WasteReportForm = () => {
     setIsSubmitting(true);
     
     try {
+      // No-op: photo upload is handled automatically below
       const { error } = await supabase
         .from('waste_reports')
         .insert({
@@ -67,6 +70,7 @@ const WasteReportForm = () => {
           ward: '',
           priority: 'medium'
         });
+  // No-op
       }
     } catch (error) {
       toast({
@@ -152,17 +156,56 @@ const WasteReportForm = () => {
           />
         </div>
 
-        {/* Photo Upload */}
+        {/* Photo Upload with Geo Tag - fully automatic */}
         <div className="space-y-2">
           <Label>Photo Evidence</Label>
-          <div className="border-2 border-dashed border-border rounded-lg p-8 text-center hover:border-primary/50 transition-colors">
-            <Camera className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
-            <p className="text-muted-foreground mb-2">Upload photos of the waste issue</p>
-            <Button variant="outline" size="sm" type="button">
-              <Upload className="h-4 w-4 mr-2" />
-              Choose Files
-            </Button>
-          </div>
+          <PhotoUploadWithGeo
+            onAutoUpload={async ({ file, latitude, longitude }) => {
+              if (!user) return;
+              setIsSubmitting(true);
+              try {
+                const fileExt = file.name.split('.').pop();
+                const fileName = `${user.id}_${Date.now()}.${fileExt}`;
+                const { data: storageData, error: storageError } = await supabase.storage
+                  .from('waste-evidence')
+                  .upload(fileName, file);
+                if (storageError) {
+                  toast({ title: "Photo Upload Error", description: storageError.message, variant: "destructive" });
+                  return;
+                }
+                const photoUrl = storageData?.path || null;
+                const { error } = await supabase
+                  .from('waste_reports')
+                  .insert({
+                    user_id: user.id,
+                    issue_type: formData.issueType as any,
+                    description: formData.description,
+                    location: formData.location,
+                    ward: formData.ward,
+                    priority_level: formData.priority as any,
+                    photo_url: photoUrl,
+                    latitude,
+                    longitude,
+                  });
+                if (error) {
+                  toast({ title: "Error", description: error.message, variant: "destructive" });
+                } else {
+                  toast({ title: "Photo Report Submitted!", description: "Your geo-tagged photo report has been submitted." });
+                  setFormData({
+                    issueType: '',
+                    description: '',
+                    location: '',
+                    ward: '',
+                    priority: 'medium'
+                  });
+                }
+              } catch (err) {
+                toast({ title: "Error", description: "An unexpected error occurred.", variant: "destructive" });
+              } finally {
+                setIsSubmitting(false);
+              }
+            }}
+          />
         </div>
 
         {/* Priority */}
